@@ -21,6 +21,7 @@ import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.LoginActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Comic_Item_Adapter;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.ActivityMainBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.ComicListFragment;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.UsersListFragment;
 
 public class MainActivity extends AppCompatActivity implements loadFragment {
     private ActivityMainBinding binding;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements loadFragment {
                     startActivity(i);
                 } else if (item.getItemId() == R.id.nav_home) {
                     loadFragment(ComicListFragment.newInstance());
+                } else if (item.getItemId() == R.id.nav_admin){
+                    loadFragment(UsersListFragment.newInstance());
                 }
                 binding.drawerLayout.closeDrawer(binding.nav);
                 binding.tbMain.setTitle(item.getTitle());

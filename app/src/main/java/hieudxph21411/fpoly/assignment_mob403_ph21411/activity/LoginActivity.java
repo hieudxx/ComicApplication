@@ -40,6 +40,13 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        shared = getSharedPreferences("PROFILE", MODE_PRIVATE);
+        boolean isCheck = shared.getBoolean("isCheck", false);
+        if (isCheck) {
+            binding.edUserName.setText(shared.getString("username", ""));
+            binding.edPass.setText(shared.getString("pass", ""));
+            binding.chkLogin.setChecked(isCheck);
+        }
         statusListener = new myStatusListener(new myStatusListener.OnStatus() {
             @Override
             public void onStatus(String message) {
@@ -48,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         queue = Volley.newRequestQueue(getApplicationContext());
-
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,19 +97,12 @@ public class LoginActivity extends AppCompatActivity {
                                 shared = getSharedPreferences("PROFILE", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = shared.edit();
                                 editor.putString("username", users.getString("username"));
-                                editor.putString("pass", users.getString("pass"));
+                                editor.putString("pass", binding.edPass.getText().toString());
                                 editor.putString("email", users.getString("email"));
                                 editor.putString("fullname", users.getString("fullname"));
                                 editor.putInt("role", users.getInt("role"));
+                                editor.putBoolean("isCheck",binding.chkLogin.isChecked());
                                 editor.apply();
-
-//                                Users newUsers = new Users();
-//                                newUsers.setUsername(shared.getString("username", ""));
-//                                newUsers.setPass(shared.getString("pass", ""));
-//                                newUsers.setEmail(shared.getString("email", ""));
-//                                newUsers.setFullname(shared.getString("fullname", ""));
-//                                newUsers.setRole(shared.getInt("role", 0));
-
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }

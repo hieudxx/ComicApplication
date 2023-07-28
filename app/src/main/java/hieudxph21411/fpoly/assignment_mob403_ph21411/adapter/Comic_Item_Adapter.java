@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,7 +14,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import hieudxph21411.fpoly.assignment_mob403_ph21411.R;
-import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.ComicItemBinding;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.ComicItemRcvBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.ComicListFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.loadFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Comic;
@@ -39,9 +37,8 @@ public class Comic_Item_Adapter extends RecyclerView.Adapter<Comic_Item_Adapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ComicItemBinding binding = DataBindingUtil.inflate(inflater, R.layout.comic_item, parent, false);
+        ComicItemRcvBinding binding = DataBindingUtil.inflate(inflater, R.layout.comic_item_rcv, parent, false);
         return new ViewHolder(binding);
-
     }
 
     @Override
@@ -54,6 +51,7 @@ public class Comic_Item_Adapter extends RecyclerView.Adapter<Comic_Item_Adapter.
             @Override
             public void onClick(View view) {
                 loadFragment.loadFragment(ComicListFragment.newInstance());
+
 
 //               context.startActivity(new Intent(context, ComicListActivity.class));
             }
@@ -69,9 +67,9 @@ public class Comic_Item_Adapter extends RecyclerView.Adapter<Comic_Item_Adapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private final ComicItemBinding binding;
+        private final ComicItemRcvBinding binding;
 
-        public ViewHolder(@NonNull ComicItemBinding binding) {
+        public ViewHolder(@NonNull ComicItemRcvBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

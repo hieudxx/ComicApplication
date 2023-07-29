@@ -25,6 +25,7 @@ import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Comic_Item_Adapter;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.api.serviceComic;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.FragmentComicListBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Comic;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Users;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +38,7 @@ public class ComicListFragment extends Fragment {
     private ArrayList<Comic> list;
     private Retrofit retrofit;
     private serviceComic serviceComic;
-
+//    public static final Users
     public ComicListFragment() {
     }
 

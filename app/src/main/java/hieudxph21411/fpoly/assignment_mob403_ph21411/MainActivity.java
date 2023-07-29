@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -19,18 +20,22 @@ import com.google.android.material.navigation.NavigationView;
 
 import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.LoginActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Comic_Item_Adapter;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Users_Item_Adapter;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.ActivityMainBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.ComicListFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.UsersListFragment;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Users;
 
-public class MainActivity extends AppCompatActivity implements loadFragment {
-    private ActivityMainBinding binding;
+public class MainActivity extends AppCompatActivity {
+    public static ActivityMainBinding binding;
+    static FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        manager = getSupportFragmentManager();
 
 //        vì ta đã bỏ actionbar trong themes nên giờ phải set lại actionbar vào toolbar để có thẻ kéo nav từ bên trái
         setSupportActionBar(binding.tbMain);
@@ -57,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements loadFragment {
             Menu menu = binding.nav.getMenu();
             menu.findItem(R.id.nav_admin).setVisible(false);
         }
-        Comic_Item_Adapter adapter = new Comic_Item_Adapter(this);
         binding.nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements loadFragment {
                     startActivity(i);
                 } else if (item.getItemId() == R.id.nav_home) {
                     loadFragment(ComicListFragment.newInstance());
-                } else if (item.getItemId() == R.id.nav_admin){
+                } else if (item.getItemId() == R.id.nav_admin) {
                     loadFragment(UsersListFragment.newInstance());
                 }
                 binding.drawerLayout.closeDrawer(binding.nav);
@@ -77,13 +81,6 @@ public class MainActivity extends AppCompatActivity implements loadFragment {
             }
         });
     }
-
-//    public void loadFragment(Fragment fragment) {
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.frameMain, fragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -95,11 +92,11 @@ public class MainActivity extends AppCompatActivity implements loadFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    public static void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frameMain, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 }

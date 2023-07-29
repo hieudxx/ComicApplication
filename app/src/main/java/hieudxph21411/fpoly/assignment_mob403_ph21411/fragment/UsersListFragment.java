@@ -1,6 +1,5 @@
 package hieudxph21411.fpoly.assignment_mob403_ph21411.fragment;
 
-import static hieudxph21411.fpoly.assignment_mob403_ph21411.api.API.URL;
 
 import android.os.Bundle;
 
@@ -20,7 +19,6 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Users_Item_Adapter;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.api.serviceUsers;
@@ -31,8 +29,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.HttpException;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class UsersListFragment extends Fragment {
@@ -40,7 +36,6 @@ public class UsersListFragment extends Fragment {
     private FragmentUsersListBinding binding;
     private DialogAddUsersBinding dialogBinding;
     private AlertDialog.Builder builder;
-    private Retrofit retrofit;
     private serviceUsers serviceUsers;
     private ArrayList<Users> list;
     private Users_Item_Adapter adapter;
@@ -57,40 +52,9 @@ public class UsersListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentUsersListBinding.inflate(inflater, container, false);
-        dialogBinding = dialogBinding.inflate(inflater);
-
-        list = new ArrayList<>();
 
         loadData();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        serviceUsers = retrofit.create(hieudxph21411.fpoly.assignment_mob403_ph21411.api.serviceUsers.class);
-
-        Call<ArrayList<Users>> call = serviceUsers.getAllUsers();
-        call.enqueue(new Callback<ArrayList<Users>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Users>> call, Response<ArrayList<Users>> response) {
-                if (response.isSuccessful()) {
-                    list = response.body();
-                    for (Users users : list){
-                        Log.e("tag_kiemTra",  users.get_id().toString());
-
-                    }
-                    adapter = new Users_Item_Adapter(getActivity(), list);
-                    binding.rcv.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Users>> call, Throwable t) {
-                Toast.makeText(getContext(), "Thất bại", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+        getData();
 
         binding.fltBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +67,7 @@ public class UsersListFragment extends Fragment {
 
     private void showDialog(LayoutInflater inflater, ViewGroup container) {
         builder = new AlertDialog.Builder(getContext()); // view.getRootView().getContext()
+        dialogBinding = dialogBinding.inflate(inflater, container, false);
         builder.setCancelable(false);
         builder.setView(dialogBinding.getRoot());
         AlertDialog alertDialog = builder.create();
@@ -136,13 +101,12 @@ public class UsersListFragment extends Fragment {
                     users.setEmail(email);
                     users.setFullname(fullname);
                     users.setAvt("");
-
-                    Call<Users> call = serviceUsers.postUsers(users);
-                    call.enqueue(new Callback<Users>() {
+                    serviceUsers.apiUsers.postUsers(users).enqueue(new Callback<Users>() {
                         @Override
                         public void onResponse(Call<Users> call, Response<Users> response) {
                             if (response.isSuccessful()) {
                                 Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                getData();
                                 adapter.notifyDataSetChanged();
                                 loadData();
                                 alertDialog.dismiss();
@@ -164,13 +128,11 @@ public class UsersListFragment extends Fragment {
                                     Log.d("Error", "Lỗi Authorization");
                                 }
                             }
-
                             // Đóng Call
                             call.cancel();
                         }
                     });
                 }
-
             }
         });
 
@@ -182,23 +144,45 @@ public class UsersListFragment extends Fragment {
         });
     }
 
-    private void validField(String value, TextInputLayout field) {
-        if (value.equals("")) {
-            field.setError("Trường này không được để trống");
-        } else {
-            field.setError(null);
-        }
+    private void getData() {
+        serviceUsers.apiUsers.getAllUsers().enqueue(new Callback<ArrayList<Users>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Users>> call, Response<ArrayList<Users>> response) {
+                if (response.isSuccessful()) {
+                    list = response.body();
+//                    for (Users users : list) {
+//                        Log.e("tag_kiemTra", users.get_id().toString());
+//                    }
+                }
+                adapter = new Users_Item_Adapter(getActivity(), list);
+                binding.rcv.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Users>> call, Throwable t) {
+                Toast.makeText(getContext(), "Thất bại", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     private void loadData() {
+        list = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rcv.setLayoutManager(layoutManager);
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         binding.rcv.addItemDecoration(itemDecoration);
         adapter = new Users_Item_Adapter(getContext(), list);
         binding.rcv.setAdapter(adapter);
+    }
 
-
+    private void validField(String value, TextInputLayout field) {
+        if (value.equals("")) {
+            field.setError("Trường này không được để trống");
+        } else {
+            field.setError(null);
+        }
     }
 
     private void validForm() {
@@ -301,16 +285,4 @@ public class UsersListFragment extends Fragment {
 
 
     }
-
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        View view = null;
-//        if (view != null) {
-//            ViewGroup parentViewGroup = (ViewGroup) view.getParent();
-//            if (parentViewGroup != null) {
-//                parentViewGroup.removeAllViews();
-//            }
-//        }
-//    }
 }

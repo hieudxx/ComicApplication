@@ -16,18 +16,11 @@ import java.util.ArrayList;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.R;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.ComicItemRcvBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.ComicListFragment;
-import hieudxph21411.fpoly.assignment_mob403_ph21411.loadFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Comic;
 
 public class Comic_Item_Adapter extends RecyclerView.Adapter<Comic_Item_Adapter.ViewHolder> {
     private Context context;
     private ArrayList<Comic> list;
-    private loadFragment loadFragment;
-
-    public Comic_Item_Adapter(hieudxph21411.fpoly.assignment_mob403_ph21411.loadFragment loadFragment) {
-        this.loadFragment = loadFragment;
-    }
-
     public Comic_Item_Adapter(Context context, ArrayList<Comic> list) {
         this.context = context;
         this.list = list;
@@ -50,8 +43,6 @@ public class Comic_Item_Adapter extends RecyclerView.Adapter<Comic_Item_Adapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadFragment.loadFragment(ComicListFragment.newInstance());
-
 
 //               context.startActivity(new Intent(context, ComicListActivity.class));
             }

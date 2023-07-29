@@ -152,10 +152,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
-
     private void registerUsers() {
         binding.btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,12 +162,16 @@ public class RegisterActivity extends AppCompatActivity {
                 String repass = binding.tvRePass.getEditText().getText().toString();
                 String email = binding.tvEmail.getEditText().getText().toString();
                 String fullname = binding.tvFullName.getEditText().getText().toString();
-                if (username.isEmpty() || pass.isEmpty() || repass.isEmpty() || fullname.isEmpty() || email.isEmpty()) {
+                String avt = binding.tvAvt.getEditText().getText().toString();
+                if (username.isEmpty() || pass.isEmpty() || repass.isEmpty() || fullname.isEmpty() || email.isEmpty() || avt.isEmpty()) {
+
                     validField(username, binding.tvUserName);
                     validField(pass, binding.tvPass);
                     validField(repass, binding.tvRePass);
                     validField(email, binding.tvEmail);
                     validField(fullname, binding.tvFullName);
+                    validField(avt, binding.tvAvt);
+
                     if (!pass.equals(repass)) {
                         binding.tvRePass.setError("Vui lòng nhập lại mật khẩu");
                     } else {
@@ -203,7 +204,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void validField(String value, TextInputLayout field) {
+    public static void validField(String value, TextInputLayout field) {
         if (value.equals("")) {
             field.setError("Trường này không được để trống");
         } else {

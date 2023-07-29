@@ -77,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-
     private void login() {
         try {
             JSONObject object = new JSONObject();
@@ -108,25 +107,6 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                     }, statusListener
-
-//                    new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//
-//                            NetworkResponse response = error.networkResponse; // Lấy thông tin response từ sv khi có lỗi xảy ra.
-//                            if (response.statusCode == 404) {
-//                                try {
-//                                    JSONObject json = new JSONObject(new String(response.data)); // new String: parse sang String nếu cần
-//                                                                                                 //response.data: Lấy dữ liệu trả về trong response,
-//                                    msg = json.getString("message"); //lấy giá trị message từ sv trả về và gán vào msg
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                    msg = "Lỗi đăng nhập";
-//                                }
-//                            }
-//                            Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
-//
-//                        }}
             );
             queue.add(request);
         } catch (Exception e) {

@@ -14,10 +14,10 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface serviceUsers {
-
     serviceUsers apiUsers = new Retrofit.Builder()
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -31,4 +31,7 @@ public interface serviceUsers {
 
     @DELETE("users/{id}")
     Call<Users> deleteById(@Path("id") String id);
+
+    @PUT("users/edit/{id}")
+    Call<Users> editById(@Path("id") String id, @Body Users data);
 }

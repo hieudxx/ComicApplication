@@ -13,7 +13,7 @@
         android:background="@drawable/bgr_yellow"
         android:gravity="center"
         android:padding="12dp"
-        android:text="Thêm Người Dùng"
+        android:text="Sửa Thông Tin Người Dùng"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -24,12 +24,25 @@
         android:orientation="vertical"
         android:paddingHorizontal="10dp">
 
+        <TextView
+            android:id="@+id/tvRole"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginVertical="10dp"
+            android:clickable="false"
+            android:enabled="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text="Chức vụ: "
+            android:textStyle="bold" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tvFullName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+
             android:hint="nhập họ tên"
             app:errorEnabled="true">
 
@@ -46,6 +59,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:clickable="false"
+            android:enabled="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:hint="nhập tài khoản"
             app:errorEnabled="true">
 
@@ -62,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:hint="nhập mật khẩu"
+            android:hint="nhập mật khẩu mới"
             app:errorEnabled="true"
             app:passwordToggleEnabled="true">
 
@@ -131,13 +148,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnAdd"
+                android:id="@+id/btnEdit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/bgr_gray_corner"
-                android:text="Thêm"
+                android:text="Sửa"
                 android:textSize="14sp" />
 
             <Button

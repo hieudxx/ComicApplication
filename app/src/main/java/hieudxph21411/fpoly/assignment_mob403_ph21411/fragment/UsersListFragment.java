@@ -1,8 +1,11 @@
 package hieudxph21411.fpoly.assignment_mob403_ph21411.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -20,6 +23,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
+import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.RegisterActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Users_Item_Adapter;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.api.serviceUsers;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.DialogAddUsersBinding;
@@ -32,13 +36,12 @@ import retrofit2.Response;
 
 
 public class UsersListFragment extends Fragment {
-
-    private FragmentUsersListBinding binding;
+    private static FragmentUsersListBinding binding;
     private DialogAddUsersBinding dialogBinding;
     private AlertDialog.Builder builder;
-    private serviceUsers serviceUsers;
-    private ArrayList<Users> list;
-    private Users_Item_Adapter adapter;
+    private static ArrayList<Users> list;
+    private static Users_Item_Adapter adapter;
+    public static Context context;
 
     public UsersListFragment() {
     }
@@ -65,6 +68,12 @@ public class UsersListFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        context = view.getContext();
+        super.onViewCreated(view, savedInstanceState);
+    }
+
     private void showDialog(LayoutInflater inflater, ViewGroup container) {
         builder = new AlertDialog.Builder(getContext()); // view.getRootView().getContext()
         dialogBinding = dialogBinding.inflate(inflater, container, false);
@@ -83,12 +92,15 @@ public class UsersListFragment extends Fragment {
                 String repass = dialogBinding.tvRePass.getEditText().getText().toString();
                 String email = dialogBinding.tvEmail.getEditText().getText().toString();
                 String fullname = dialogBinding.tvFullName.getEditText().getText().toString();
-                if (username.isEmpty() || pass.isEmpty() || repass.isEmpty() || fullname.isEmpty() || email.isEmpty()) {
-                    validField(username, dialogBinding.tvUserName);
-                    validField(pass, dialogBinding.tvPass);
-                    validField(repass, dialogBinding.tvRePass);
-                    validField(email, dialogBinding.tvEmail);
-                    validField(fullname, dialogBinding.tvFullName);
+                String avt = dialogBinding.tvAvt.getEditText().getText().toString();
+                if (username.isEmpty() || pass.isEmpty() || repass.isEmpty() || fullname.isEmpty() || email.isEmpty() || avt.isEmpty()) {
+                    RegisterActivity.validField(username,dialogBinding.tvUserName);
+                    RegisterActivity.validField(username, dialogBinding.tvUserName);
+                    RegisterActivity.validField(pass, dialogBinding.tvPass);
+                    RegisterActivity.validField(repass, dialogBinding.tvRePass);
+                    RegisterActivity.validField(email, dialogBinding.tvEmail);
+                    RegisterActivity.validField(fullname, dialogBinding.tvFullName);
+                    RegisterActivity.validField(avt, dialogBinding.tvAvt);
                     if (!pass.equals(repass)) {
                         dialogBinding.tvRePass.setError("Vui lòng nhập lại mật khẩu");
                     } else {
@@ -100,7 +112,7 @@ public class UsersListFragment extends Fragment {
                     users.setPass(pass);
                     users.setEmail(email);
                     users.setFullname(fullname);
-                    users.setAvt("");
+                    users.setAvt(avt);
                     serviceUsers.apiUsers.postUsers(users).enqueue(new Callback<Users>() {
                         @Override
                         public void onResponse(Call<Users> call, Response<Users> response) {
@@ -144,29 +156,25 @@ public class UsersListFragment extends Fragment {
         });
     }
 
-    private void getData() {
+    public static void getData() {
         serviceUsers.apiUsers.getAllUsers().enqueue(new Callback<ArrayList<Users>>() {
             @Override
             public void onResponse(Call<ArrayList<Users>> call, Response<ArrayList<Users>> response) {
                 if (response.isSuccessful()) {
                     list = response.body();
-//                    for (Users users : list) {
-//                        Log.e("tag_kiemTra", users.get_id().toString());
-//                    }
                 }
-                adapter = new Users_Item_Adapter(getActivity(), list);
+                adapter = new Users_Item_Adapter(context, list);
                 binding.rcv.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<ArrayList<Users>> call, Throwable t) {
-                Toast.makeText(getContext(), "Thất bại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Thất bại", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
-
     private void loadData() {
         list = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -175,14 +183,6 @@ public class UsersListFragment extends Fragment {
         binding.rcv.addItemDecoration(itemDecoration);
         adapter = new Users_Item_Adapter(getContext(), list);
         binding.rcv.setAdapter(adapter);
-    }
-
-    private void validField(String value, TextInputLayout field) {
-        if (value.equals("")) {
-            field.setError("Trường này không được để trống");
-        } else {
-            field.setError(null);
-        }
     }
 
     private void validForm() {
@@ -285,4 +285,5 @@ public class UsersListFragment extends Fragment {
 
 
     }
+
 }

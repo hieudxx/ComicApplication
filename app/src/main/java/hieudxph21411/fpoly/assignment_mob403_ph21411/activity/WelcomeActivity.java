@@ -21,13 +21,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
         ImageView imgBook = findViewById(R.id.imgLogo);
         Glide.with(this).load(R.drawable.book).into(imgBook);
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
                 finish();
-
             }
         }, 3000);
     }

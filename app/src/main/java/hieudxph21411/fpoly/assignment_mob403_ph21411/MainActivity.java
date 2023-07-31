@@ -15,16 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
 import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.LoginActivity;
-import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Comic_Item_Adapter;
-import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Users_Item_Adapter;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.ActivityMainBinding;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.ComicFavorFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.ComicListFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.UsersListFragment;
-import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Users;
 
 public class MainActivity extends AppCompatActivity {
     public static ActivityMainBinding binding;
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         manager = getSupportFragmentManager();
+        loadFragment(ComicListFragment.newInstance());
 
 //        vì ta đã bỏ actionbar trong themes nên giờ phải set lại actionbar vào toolbar để có thẻ kéo nav từ bên trái
         setSupportActionBar(binding.tbMain);
@@ -73,10 +73,15 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(ComicListFragment.newInstance());
                 } else if (item.getItemId() == R.id.nav_users) {
                     loadFragment(UsersListFragment.newInstance());
+                } else if (item.getItemId() == R.id.nav_favor){
+                    loadFragment(ComicFavorFragment.newInstance());
+                    Toast.makeText(MainActivity.this, "Tính năng chưa được phát triển", Toast.LENGTH_SHORT).show();
                 }
+//                else if (item.getItemId() == R.id.nav_author){
+//                    loadFragment(AuthorListFragment.newInstance());
+//                }
                 binding.drawerLayout.closeDrawer(binding.nav);
                 binding.tbMain.setTitle(item.getTitle());
-
                 return true;
             }
         });

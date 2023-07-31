@@ -43,6 +43,11 @@
                 android:icon="@drawable/ic_person"
                 android:title="Quản lý người dùng" />
 
+<!--            <item-->
+<!--                android:id="@+id/nav_author"-->
+<!--                android:icon="@drawable/ic_person"-->
+<!--                android:title="Quản lý tác giả" />-->
+
             <item
                 android:id="@+id/nav_TK"
                 android:icon="@drawable/ic_chart"
@@ -52,6 +57,12 @@
 
     <item android:title="Người dùng">
         <menu>
+
+            <item
+                android:id="@+id/nav_favor"
+                android:icon="@drawable/ic_info"
+                android:title="Truyện yêu thích" />
+
             <item
                 android:id="@+id/nav_info"
                 android:icon="@drawable/ic_info"

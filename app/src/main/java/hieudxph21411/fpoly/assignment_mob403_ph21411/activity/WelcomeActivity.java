@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import hieudxph21411.fpoly.assignment_mob403_ph21411.MainActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.R;
 
 public class WelcomeActivity extends AppCompatActivity {

@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface APIComic {
 
@@ -19,6 +20,10 @@ public interface APIComic {
             .create(APIComic.class);
     @GET("comic")
     Call<ArrayList<Comic>> getAllComic();
+
+    @GET("comic/detail/{id}")
+    Call<Comic> getOneComic(@Path("id") String id);
+
 
 
 }

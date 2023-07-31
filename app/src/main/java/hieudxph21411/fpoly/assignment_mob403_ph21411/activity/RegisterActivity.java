@@ -14,14 +14,12 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
 
-import hieudxph21411.fpoly.assignment_mob403_ph21411.MainActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.R;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.api.API;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.ActivityRegisterBinding;

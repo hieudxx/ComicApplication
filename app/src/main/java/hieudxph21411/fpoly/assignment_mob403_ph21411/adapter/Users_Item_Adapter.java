@@ -20,13 +20,11 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import hieudxph21411.fpoly.assignment_mob403_ph21411.MainActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.R;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.RegisterActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.api.APIUsers;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.DialogEditUsersBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.UsersItemRcvBinding;
-import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.ComicListFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.UsersListFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Users;
 import retrofit2.Call;
@@ -63,12 +61,6 @@ public class Users_Item_Adapter extends RecyclerView.Adapter<Users_Item_Adapter.
             holder.binding.tvRole.setText("Chức vụ: Admin");
         }
         Glide.with(this.context).load(list.get(position).getAvt()).into(holder.binding.imgAvt);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.loadFragment(ComicListFragment.newInstance());
-            }
-        });
 
         holder.binding.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,5 @@
 package hieudxph21411.fpoly.assignment_mob403_ph21411.fragment;
 
-
 import android.content.Context;
 import android.os.Bundle;
 
@@ -9,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -53,9 +51,9 @@ public class UsersListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentUsersListBinding.inflate(inflater, container, false);
-
-        loadData();
         getData();
+        loadData();
+
 
         binding.fltBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +90,7 @@ public class UsersListFragment extends Fragment {
                 String fullname = dialogBinding.tvFullName.getEditText().getText().toString();
                 String avt = dialogBinding.tvAvt.getEditText().getText().toString();
                 if (username.isEmpty() || pass.isEmpty() || repass.isEmpty() || fullname.isEmpty() || email.isEmpty() || avt.isEmpty()) {
-                    RegisterActivity.validField(username,dialogBinding.tvUserName);
+                    RegisterActivity.validField(username, dialogBinding.tvUserName);
                     RegisterActivity.validField(username, dialogBinding.tvUserName);
                     RegisterActivity.validField(pass, dialogBinding.tvPass);
                     RegisterActivity.validField(repass, dialogBinding.tvRePass);
@@ -153,12 +151,13 @@ public class UsersListFragment extends Fragment {
             }
         });
     }
+
     public static void getData() {
         APIUsers.apiUsers.getAllUsers().enqueue(new Callback<ArrayList<Users>>() {
             @Override
             public void onResponse(Call<ArrayList<Users>> call, Response<ArrayList<Users>> response) {
                 if (response.isSuccessful()) {
-                    list = response.body();
+                    list = new ArrayList<>(response.body());
                 }
                 adapter = new Users_Item_Adapter(context, list);
                 binding.rcv.setAdapter(adapter);
@@ -171,14 +170,11 @@ public class UsersListFragment extends Fragment {
             }
         });
     }
+
     private void loadData() {
-        list = new ArrayList<>();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        binding.rcv.setLayoutManager(layoutManager);
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         binding.rcv.addItemDecoration(itemDecoration);
-        adapter = new Users_Item_Adapter(getContext(), list);
-        binding.rcv.setAdapter(adapter);
+        binding.rcv.setAdapter(new Users_Item_Adapter(getContext(), list));
     }
 
     private void validForm() {
@@ -195,6 +191,7 @@ public class UsersListFragment extends Fragment {
                     dialogBinding.tvFullName.setError(null);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
             }
@@ -271,6 +268,7 @@ public class UsersListFragment extends Fragment {
                     dialogBinding.tvEmail.setError(null);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
             }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -28,9 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ComicListFragment extends Fragment {
     private FragmentComicListBinding binding;
     private ArrayList<Comic> list;
-    private Retrofit retrofit;
-    private APIComic serviceComic;
-//    public static final Users
+    private Comic_Item_Adapter adapter;
     public ComicListFragment() {
     }
 
@@ -43,46 +42,40 @@ public class ComicListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentComicListBinding.inflate(inflater, container, false);
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        serviceComic = retrofit.create(APIComic.class);
-        try {
-            Call<Comic> call = serviceComic.getAllComic();
-            call.enqueue(new Callback<Comic>() {
-                @Override
-                public void onResponse(Call<Comic> call, Response<Comic> response) {
-
-                }
-
-                @Override
-                public void onFailure(Call<Comic> call, Throwable t) {
-
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         loadData();
-//        JsonObjectRequest objectRequest = new JsonObjectRequest()
-//        AppCompatActivity activity = (AppCompatActivity) getActivity();
-//        activity.setSupportActionBar(binding.tbListComic);
-//        ActionBar actionBar = activity.getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        list.add(new Comic("tác giả", new String[]{"nội dung"},"tên","des",1,"https://nettruyen.live/public/images/comics/onepunch-man.jpg",200));
+        list.add(new Comic("tác giả", new String[]{"nội dung"},"tên","des",1,"https://nettruyen.live/public/images/comics/onepunch-man.jpg",200));
+        list.add(new Comic("tác giả", new String[]{"nội dung"},"tên","des",1,"https://nettruyen.live/public/images/comics/onepunch-man.jpg",200));
+
+        getData();
 
         return binding.getRoot();
     }
 
+    private void getData(){
+        APIComic.apiComic.getAllComic().enqueue(new Callback<ArrayList<Comic>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Comic>> call, Response<ArrayList<Comic>> response) {
+                Toast.makeText(getContext(), "Thành công", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()){
+                    list = response.body();
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Comic>> call, Throwable t) {
+                Toast.makeText(getContext(), "thất bại", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void loadData() {
-        Comic_Item_Adapter adapter = new Comic_Item_Adapter(getContext(), list);
+        list = new ArrayList<>();
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);  // dạng grid và chia thành 2 cột, ở đây ta phải set vào dòng bên dưới nữa mới chạy đc
         layoutManager.setOrientation(RecyclerView.VERTICAL); // dạng vuốt ngang
         binding.rcv.setLayoutManager(layoutManager);
-//        adapter = new Comic_Item_Adapter(getContext(), list);
+        adapter = new Comic_Item_Adapter(getContext(), list);
         binding.rcv.setAdapter(adapter);
     }
 }

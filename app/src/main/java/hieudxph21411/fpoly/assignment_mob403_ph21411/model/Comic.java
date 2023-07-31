@@ -1,20 +1,45 @@
 package hieudxph21411.fpoly.assignment_mob403_ph21411.model;
 
 public class Comic {
-    private Author[] author;
+    private String author;
     private String[] content;
     private Cmt[] cmt;
     private String name;
     private String des;
     private int date;
     private String cover;
+
+    public Comic(String author, String[] content, String name, String des, int date, String cover, int chapter) {
+        this.author = author;
+        this.content = content;
+        this.name = name;
+        this.des = des;
+        this.date = date;
+        this.cover = cover;
+        this.chapter = chapter;
+    }
+
     private int chapter;
 
-    public Author[] getAuthor() {
+    public Comic(String author, String[] content, Cmt[] cmt, String name, String des, int date, String cover, int chapter) {
+        this.author = author;
+        this.content = content;
+        this.cmt = cmt;
+        this.name = name;
+        this.des = des;
+        this.date = date;
+        this.cover = cover;
+        this.chapter = chapter;
+    }
+
+    public Comic() {
+    }
+
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author[] author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -71,20 +96,6 @@ public class Comic {
     }
 
     public void setChapter(int chapter) {
-        this.chapter = chapter;
-    }
-
-    public Comic() {
-    }
-
-    public Comic(Author[] author, String[] content, Cmt[] cmt, String name, String des, int date, String cover, int chapter) {
-        this.author = author;
-        this.content = content;
-        this.cmt = cmt;
-        this.name = name;
-        this.des = des;
-        this.date = date;
-        this.cover = cover;
         this.chapter = chapter;
     }
 }

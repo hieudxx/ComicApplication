@@ -19,13 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputLayout;
-
 import java.util.ArrayList;
 
 import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.RegisterActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Users_Item_Adapter;
-import hieudxph21411.fpoly.assignment_mob403_ph21411.api.serviceUsers;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.api.APIUsers;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.DialogAddUsersBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.FragmentUsersListBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Users;
@@ -113,7 +111,7 @@ public class UsersListFragment extends Fragment {
                     users.setEmail(email);
                     users.setFullname(fullname);
                     users.setAvt(avt);
-                    serviceUsers.apiUsers.postUsers(users).enqueue(new Callback<Users>() {
+                    APIUsers.apiUsers.postUsers(users).enqueue(new Callback<Users>() {
                         @Override
                         public void onResponse(Call<Users> call, Response<Users> response) {
                             if (response.isSuccessful()) {
@@ -155,9 +153,8 @@ public class UsersListFragment extends Fragment {
             }
         });
     }
-
     public static void getData() {
-        serviceUsers.apiUsers.getAllUsers().enqueue(new Callback<ArrayList<Users>>() {
+        APIUsers.apiUsers.getAllUsers().enqueue(new Callback<ArrayList<Users>>() {
             @Override
             public void onResponse(Call<ArrayList<Users>> call, Response<ArrayList<Users>> response) {
                 if (response.isSuccessful()) {
@@ -171,7 +168,6 @@ public class UsersListFragment extends Fragment {
             @Override
             public void onFailure(Call<ArrayList<Users>> call, Throwable t) {
                 Toast.makeText(context, "Thất bại", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -199,7 +195,6 @@ public class UsersListFragment extends Fragment {
                     dialogBinding.tvFullName.setError(null);
                 }
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
             }
@@ -276,14 +271,9 @@ public class UsersListFragment extends Fragment {
                     dialogBinding.tvEmail.setError(null);
                 }
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
-
-
     }
-
 }

@@ -24,8 +24,6 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
         android:backgroundTint="#FF5722"
-        android:src="@drawable/ic_add">
+        android:src="@drawable/ic_add"/>
 
-
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 </RelativeLayout>

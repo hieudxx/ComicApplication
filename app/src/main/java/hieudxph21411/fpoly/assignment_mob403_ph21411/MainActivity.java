@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(i);
                 } else if (item.getItemId() == R.id.nav_home) {
                     loadFragment(ComicListFragment.newInstance());
-                } else if (item.getItemId() == R.id.nav_admin) {
+                } else if (item.getItemId() == R.id.nav_users) {
                     loadFragment(UsersListFragment.newInstance());
                 }
                 binding.drawerLayout.closeDrawer(binding.nav);

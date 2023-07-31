@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.MainActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.R;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.RegisterActivity;
-import hieudxph21411.fpoly.assignment_mob403_ph21411.api.serviceUsers;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.api.APIUsers;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.DialogEditUsersBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.UsersItemRcvBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.ComicListFragment;
@@ -31,7 +31,6 @@ import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.UsersListFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Users;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.HttpException;
 import retrofit2.Response;
 
 public class Users_Item_Adapter extends RecyclerView.Adapter<Users_Item_Adapter.ViewHolder> {
@@ -78,7 +77,7 @@ public class Users_Item_Adapter extends RecyclerView.Adapter<Users_Item_Adapter.
                 builder.setTitle("Thông báo");
                 builder.setMessage("Bạn có chắc chắn muốn xóa ?");
                 builder.setNegativeButton("Có", (dialog, which) -> {
-                    serviceUsers.apiUsers.deleteById(list.get(position).get_id()).enqueue(new Callback<Users>() {
+                    APIUsers.apiUsers.deleteById(list.get(position).get_id()).enqueue(new Callback<Users>() {
                         @Override
                         public void onResponse(Call<Users> call, Response<Users> response) {
                             if (response.isSuccessful()) {
@@ -152,7 +151,7 @@ public class Users_Item_Adapter extends RecyclerView.Adapter<Users_Item_Adapter.
                     user.setEmail(email);
                     user.setFullname(fullname);
                     user.setAvt(avt);
-                    serviceUsers.apiUsers.editById(users.get_id(),user).enqueue(new Callback<Users>() {
+                    APIUsers.apiUsers.editById(users.get_id(),user).enqueue(new Callback<Users>() {
                         @Override
                         public void onResponse(Call<Users> call, Response<Users> response) {
                             UsersListFragment.getData();

@@ -4,28 +4,20 @@ import static hieudxph21411.fpoly.assignment_mob403_ph21411.api.API.URL;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.toolbox.JsonObjectRequest;
-
 import java.util.ArrayList;
 
-import hieudxph21411.fpoly.assignment_mob403_ph21411.R;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Comic_Item_Adapter;
-import hieudxph21411.fpoly.assignment_mob403_ph21411.api.serviceComic;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.api.APIComic;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.FragmentComicListBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Comic;
-import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Users;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +29,7 @@ public class ComicListFragment extends Fragment {
     private FragmentComicListBinding binding;
     private ArrayList<Comic> list;
     private Retrofit retrofit;
-    private serviceComic serviceComic;
+    private APIComic serviceComic;
 //    public static final Users
     public ComicListFragment() {
     }
@@ -56,7 +48,7 @@ public class ComicListFragment extends Fragment {
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        serviceComic = retrofit.create(serviceComic.class);
+        serviceComic = retrofit.create(APIComic.class);
         try {
             Call<Comic> call = serviceComic.getAllComic();
             call.enqueue(new Callback<Comic>() {

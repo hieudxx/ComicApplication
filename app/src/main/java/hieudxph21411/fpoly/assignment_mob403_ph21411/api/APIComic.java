@@ -4,7 +4,7 @@ import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Comic;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface serviceComic {
+public interface APIComic {
     @GET("comic")
     Call<Comic> getAllComic();
 

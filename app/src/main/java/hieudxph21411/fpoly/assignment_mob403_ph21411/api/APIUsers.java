@@ -21,8 +21,12 @@ public interface APIUsers {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(APIUsers.class);
+
     @GET("users")
     Call<ArrayList<Users>> getAllUsers();
+
+    @GET("users/{id}")
+    Call<Users> getOneUsers(@Path("id") String id);
 
     @POST("register/users")
     Call<Users> postUsers(@Body Users data);

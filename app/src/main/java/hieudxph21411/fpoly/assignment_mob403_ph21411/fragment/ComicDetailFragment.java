@@ -57,7 +57,6 @@ public class ComicDetailFragment extends Fragment {
             }
         });
         return binding.getRoot();
-
     }
 
     private void getData() {
@@ -75,6 +74,7 @@ public class ComicDetailFragment extends Fragment {
                     binding.tvDes.setText(comic.getDes());
 
                     list = new ArrayList<>(Arrays.asList(comic.getCmt()));
+
                     Log.e("tag_kiemTra", list.toString());
 
                     adapter = new Cmt_Item_Adapter(getContext(), list);

@@ -5,9 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="12dp">
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -15,11 +13,20 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imgAvt"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="centerCrop" />
+            <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/imgAvt"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avt" />
+            </androidx.cardview.widget.CardView>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,6 +58,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="10dp"
+            android:text="ádasdas"
             android:textStyle="italic" />
 
     </androidx.cardview.widget.CardView>

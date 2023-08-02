@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
     private void login() {
         try {
             JSONObject object = new JSONObject();
@@ -96,7 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("email", users.getString("email"));
                                 editor.putString("fullname", users.getString("fullname"));
                                 editor.putInt("role", users.getInt("role"));
-                                editor.putBoolean("isCheck",binding.chkLogin.isChecked());
+                                editor.putString("avt", users.getString("avt"));
+                                editor.putBoolean("isCheck", binding.chkLogin.isChecked());
                                 editor.apply();
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);

@@ -75,7 +75,7 @@ public class ComicDetailFragment extends Fragment {
 
                     list = new ArrayList<>(Arrays.asList(comic.getCmt()));
 
-                    Log.e("tag_kiemTra", list.toString());
+//                    Log.e("tag_kiemTra", list.toString());
 
                     adapter = new Cmt_Item_Adapter(getContext(), list);
                     binding.rcv.setAdapter(adapter);

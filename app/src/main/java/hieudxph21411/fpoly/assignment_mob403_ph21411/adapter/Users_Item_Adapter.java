@@ -113,7 +113,7 @@ public class Users_Item_Adapter extends RecyclerView.Adapter<Users_Item_Adapter.
         editBinding.edtFullName.setText(users.getFullname());
         editBinding.edtUserName.setText(users.getUsername());
         editBinding.edtEmail.setText(users.getEmail());
-        SharedPreferences shared = ((Activity) context).getSharedPreferences("PROFILE", MODE_PRIVATE);
+        SharedPreferences shared = context.getSharedPreferences("PROFILE", MODE_PRIVATE);
         editBinding.edtPass.setText(shared.getString("pass", ""));
         SharedPreferences.Editor editor = shared.edit();
         editor.putString("pass", editBinding.edtPass.getText().toString());

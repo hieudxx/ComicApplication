@@ -17,12 +17,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
 import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.LoginActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.ActivityMainBinding;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.HeaderLayoutBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.ComicFavorFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.ComicListFragment;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.UsersInfoFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.UsersListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         manager = getSupportFragmentManager();
         loadFragment(ComicListFragment.newInstance());
 
@@ -49,16 +53,25 @@ public class MainActivity extends AppCompatActivity {
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        View headerLayout = binding.nav.getHeaderView(0);
-        TextView tvName = headerLayout.findViewById(R.id.tvName);
         SharedPreferences shared = getSharedPreferences("PROFILE", MODE_PRIVATE);
 
-        int role = shared.getInt("role", 1);
+        View headerLayout = binding.nav.getHeaderView(0);
+        HeaderLayoutBinding headerBinding = HeaderLayoutBinding.bind(headerLayout);
 
-        String username = shared.getString("username", "");
-        tvName.setText(username);
+        headerBinding.tvFullName.setText(shared.getString("fullname", ""));
+        headerBinding.tvUserName.setText(shared.getString("username", ""));
+        Glide.with(this).load(shared.getString("avt", "")).into(headerBinding.imgAvt);
+        headerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFragment(UsersInfoFragment.newInstance());
+                binding.drawerLayout.closeDrawer(binding.nav);
+                binding.tbMain.setTitle("Thông tin cá nhân");
+            }
+        });
 
-        if (role == 1) {
+
+        if ((shared.getInt("role", 1)) == 1) {
             Menu menu = binding.nav.getMenu();
             menu.findItem(R.id.nav_admin).setVisible(false);
         }
@@ -73,9 +86,10 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(ComicListFragment.newInstance());
                 } else if (item.getItemId() == R.id.nav_users) {
                     loadFragment(UsersListFragment.newInstance());
-                } else if (item.getItemId() == R.id.nav_favor){
+                } else if (item.getItemId() == R.id.nav_favor) {
                     loadFragment(ComicFavorFragment.newInstance());
-                    Toast.makeText(MainActivity.this, "Tính năng chưa được phát triển", Toast.LENGTH_SHORT).show();
+                } else if (item.getItemId() == R.id.nav_info) {
+                    loadFragment(UsersInfoFragment.newInstance());
                 }
 //                else if (item.getItemId() == R.id.nav_author){
 //                    loadFragment(AuthorListFragment.newInstance());

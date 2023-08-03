@@ -49,10 +49,10 @@ public class Cmt_Item_Adapter extends RecyclerView.Adapter<Cmt_Item_Adapter.View
         holder.binding.tvContent.setText(list.get(position).getContent());
         holder.binding.tvTime.setText(list.get(position).getTime());
 
-        Log.e("tag_kiemTra", list.get(position).getContent());
-        Log.e("tag_kiemTra", list.get(position).getTime());
-        Log.e("tag_kiemTra", list.get(position).getUsers().getAvt());
-        Log.e("tag_kiemTra", list.get(position).getUsers().getFullname());
+//        Log.e("tag_kiemTra", list.get(position).getContent());
+//        Log.e("tag_kiemTra", list.get(position).getTime());
+//        Log.e("tag_kiemTra", list.get(position).getUsers().getAvt());
+//        Log.e("tag_kiemTra", list.get(position).getUsers().getFullname());
     }
 
     @Override

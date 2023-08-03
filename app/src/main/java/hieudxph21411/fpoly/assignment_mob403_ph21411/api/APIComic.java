@@ -20,9 +20,10 @@ public interface APIComic {
             .create(APIComic.class);
     @GET("comic")
     Call<ArrayList<Comic>> getAllComic();
-
     @GET("comic/detail/{id}")
     Call<Comic> getOneComic(@Path("id") String id);
+
+
 
 
 

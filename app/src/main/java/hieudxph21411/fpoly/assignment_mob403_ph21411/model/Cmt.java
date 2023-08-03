@@ -47,4 +47,9 @@ public class Cmt {
         this.comic = comic;
         this.users = users;
     }
+
+    public Cmt(String time, String content) {
+        this.time = time;
+        this.content = content;
+    }
 }

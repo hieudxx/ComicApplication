@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private JsonObjectRequest request;
     private String msg = "";
     private myStatusListener statusListener;
-    private SharedPreferences shared;
+    public static SharedPreferences shared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +90,10 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             try {
                                 JSONObject users = response.getJSONObject("users");
-                                shared = getSharedPreferences("PROFILE", MODE_PRIVATE);
+//                                shared = getSharedPreferences("PROFILE", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = shared.edit();
                                 editor.putString("username", users.getString("username"));
+                                editor.putString("_id", users.getString("_id"));
                                 editor.putString("pass", binding.edPass.getText().toString());
                                 editor.putString("email", users.getString("email"));
                                 editor.putString("fullname", users.getString("fullname"));

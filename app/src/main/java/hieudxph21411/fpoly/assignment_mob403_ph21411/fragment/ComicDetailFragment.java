@@ -13,15 +13,22 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import hieudxph21411.fpoly.assignment_mob403_ph21411.MainActivity;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.LoginActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Cmt_Item_Adapter;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.api.APICmt;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.api.APIComic;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.FragmentComicDetailBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Cmt;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Comic;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,6 +63,63 @@ public class ComicDetailFragment extends Fragment {
                 MainActivity.loadFragment(ComicListFragment.newInstance());
             }
         });
+
+        binding.btnAddCmt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+                String time = df.format(c.getTime());
+
+                String comicId = idm;
+                String usersId = LoginActivity.shared.getString("_id", "");
+
+                Cmt cmt = new Cmt();
+                cmt.setTime(time);
+                cmt.setContent(binding.edContent.getText().toString());
+
+                Log.e("tag_kiemTra", comicId +"\n"+ usersId +"\n"+ binding.edContent.getText().toString()+"\n"+ time );
+
+                APICmt.apiCmt.postCmt(cmt, comicId, usersId).enqueue(new Callback<Cmt>() {
+                    @Override
+                    public void onResponse(Call<Cmt> call, Response<Cmt> response) {
+                        Toast.makeText(getContext(), "Thêm thành công" + comicId +"\n"+ usersId, Toast.LENGTH_SHORT).show();
+                        getData();
+                        adapter.notifyDataSetChanged();
+                        loadData();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Cmt> call, Throwable t) {
+                        Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+            }
+        });
+
+        binding.btnRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.loadFragment(ComicReadFragment.newInstance());
+            }
+        });
+        final int[] isExpanded = {1};
+
+        binding.tvDes.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                if (isExpanded[0] == 1) {
+                    binding.tvDes.setMaxLines(Integer.MAX_VALUE);
+                    isExpanded[0] = 2;
+                } else {
+                    binding.tvDes.setMaxLines(3);
+                    isExpanded[0] = 1;
+                }
+            }
+        });
         return binding.getRoot();
     }
 
@@ -74,8 +138,6 @@ public class ComicDetailFragment extends Fragment {
                     binding.tvDes.setText(comic.getDes());
 
                     list = new ArrayList<>(Arrays.asList(comic.getCmt()));
-
-//                    Log.e("tag_kiemTra", list.toString());
 
                     adapter = new Cmt_Item_Adapter(getContext(), list);
                     binding.rcv.setAdapter(adapter);

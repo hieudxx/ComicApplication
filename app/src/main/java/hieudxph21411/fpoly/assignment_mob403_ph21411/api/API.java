@@ -6,7 +6,7 @@ public class API {
 //    192.168.1.19
 //    10.24.29.225
 //     192.168.0.104
-    public static final String API_POST_LOGIN = "http://192.168.0.104:9999/api/login";
-    public static final String API_POST_REGISTER_USERS = "http://192.168.0.104:9999/api/register/users";
-    public static final String URL = "http://192.168.0.104:9999/api/";
+    public static final String API_POST_LOGIN = "http://10.24.30.216:9999/api/login";
+    public static final String API_POST_REGISTER_USERS = "http://10.24.30.216:9999/api/register/users";
+    public static final String URL = "http://10.24.30.216:9999/api/";
 }

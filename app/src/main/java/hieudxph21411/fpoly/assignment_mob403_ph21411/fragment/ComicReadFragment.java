@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import hieudxph21411.fpoly.assignment_mob403_ph21411.R;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.FragmentComicDetailBinding;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.FragmentComicReadBinding;
 
 public class ComicReadFragment extends Fragment {
-
+    private FragmentComicReadBinding binding;
     public ComicReadFragment() {
 
     }
@@ -23,7 +25,9 @@ public class ComicReadFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comic_read, container, false);
+        binding = FragmentComicReadBinding.inflate(inflater, container, false);
+
+
+        return binding.getRoot();
     }
 }

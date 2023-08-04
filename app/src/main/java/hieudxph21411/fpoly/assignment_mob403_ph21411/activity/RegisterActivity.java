@@ -150,11 +150,32 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+        binding.edtAvt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() == 0) {
+                    binding.tvAvt.setError("Vui lòng nhập lại mật khẩu");
+                } else {
+                    binding.tvAvt.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
+
     private void registerUsers() {
         binding.btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getOnBackPressedDispatcher();
                 String username = binding.tvUserName.getEditText().getText().toString();
                 String pass = binding.tvPass.getEditText().getText().toString();
                 String repass = binding.tvRePass.getEditText().getText().toString();
@@ -203,7 +224,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public static void validField(String value, TextInputLayout field) {
-        if (value.equals("")) {
+        if (value.isEmpty()) {
             field.setError("Trường này không được để trống");
         } else {
             field.setError(null);

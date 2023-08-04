@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
     android:background="@drawable/bgr_white"
     android:orientation="vertical">
 
@@ -36,8 +35,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtFullName"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingHorizontal="5dp" />
+                android:layout_height="50dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -45,15 +43,13 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
             android:hint="nhập tài khoản"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtUserName"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingHorizontal="5dp" />
+                android:layout_height="50dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -61,7 +57,6 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
             android:hint="nhập mật khẩu"
             app:errorEnabled="true"
             app:passwordToggleEnabled="true">
@@ -70,8 +65,7 @@
                 android:id="@+id/edtPass"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:inputType="textPassword"
-                android:paddingHorizontal="5dp" />
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -79,7 +73,6 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
             android:hint="Nhập lại mật khẩu"
             app:errorEnabled="true"
             app:passwordToggleEnabled="true">
@@ -88,8 +81,7 @@
                 android:id="@+id/edtRePass"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:inputType="textPassword"
-                android:paddingHorizontal="5dp" />
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -97,15 +89,13 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
             android:hint="nhập email"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingHorizontal="5dp" />
+                android:layout_height="50dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -113,21 +103,18 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
             android:hint="nhập đường dẫn ảnh đại diện"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtAvt"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingHorizontal="5dp" />
+                android:layout_height="50dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <Button

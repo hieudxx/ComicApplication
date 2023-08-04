@@ -90,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             try {
                                 JSONObject users = response.getJSONObject("users");
-//                                shared = getSharedPreferences("PROFILE", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = shared.edit();
                                 editor.putString("username", users.getString("username"));
                                 editor.putString("_id", users.getString("_id"));

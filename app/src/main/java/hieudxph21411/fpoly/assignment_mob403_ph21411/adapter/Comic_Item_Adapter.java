@@ -48,7 +48,6 @@ public class Comic_Item_Adapter extends RecyclerView.Adapter<Comic_Item_Adapter.
         holder.binding.tvNameComic.setText(list.get(position).getName());
         holder.binding.chapter.setText("Chapter " + list.get(position).getChapter());
         Glide.with(this.context).load(list.get(position).getCover()).into(holder.binding.imgCover);
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

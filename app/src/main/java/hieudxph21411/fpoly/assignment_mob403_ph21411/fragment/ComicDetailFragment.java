@@ -39,6 +39,7 @@ public class ComicDetailFragment extends Fragment {
     private Cmt_Item_Adapter adapter;
     private Comic comic;
     static String idm;
+    static String _idComic;
 
     public ComicDetailFragment() {
     }
@@ -55,7 +56,6 @@ public class ComicDetailFragment extends Fragment {
         binding = FragmentComicDetailBinding.inflate(inflater, container, false);
         comic = new Comic();
         getData();
-        loadData();
 
         binding.tvHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +67,7 @@ public class ComicDetailFragment extends Fragment {
         binding.btnAddCmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Calendar c = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
                 String time = df.format(c.getTime());
@@ -78,15 +79,11 @@ public class ComicDetailFragment extends Fragment {
                 cmt.setTime(time);
                 cmt.setContent(binding.edContent.getText().toString());
 
-                Log.e("tag_kiemTra", comicId +"\n"+ usersId +"\n"+ binding.edContent.getText().toString()+"\n"+ time );
-
                 APICmt.apiCmt.postCmt(cmt, comicId, usersId).enqueue(new Callback<Cmt>() {
                     @Override
                     public void onResponse(Call<Cmt> call, Response<Cmt> response) {
                         Toast.makeText(getContext(), "Thêm thành công" + comicId +"\n"+ usersId, Toast.LENGTH_SHORT).show();
                         getData();
-                        adapter.notifyDataSetChanged();
-                        loadData();
                     }
 
                     @Override
@@ -101,7 +98,8 @@ public class ComicDetailFragment extends Fragment {
         binding.btnRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.loadFragment(ComicReadFragment.newInstance());
+                MainActivity.loadFragment(ComicReadFragment.newInstance(_idComic));
+
             }
         });
         final int[] isExpanded = {1};
@@ -136,9 +134,11 @@ public class ComicDetailFragment extends Fragment {
                     binding.tvAuthor.setText("Tác giả: " + comic.getAuthor());
                     binding.tvChapter.setText("Chapter: " + comic.getChapter());
                     binding.tvDes.setText(comic.getDes());
-
+                    _idComic = comic.get_id();
                     list = new ArrayList<>(Arrays.asList(comic.getCmt()));
 
+                    DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+                    binding.rcv.addItemDecoration(itemDecoration);
                     adapter = new Cmt_Item_Adapter(getContext(), list);
                     binding.rcv.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
@@ -150,11 +150,5 @@ public class ComicDetailFragment extends Fragment {
                 Toast.makeText(getContext(), "Thất bại", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void loadData() {
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        binding.rcv.addItemDecoration(itemDecoration);
-        binding.rcv.setAdapter(new Cmt_Item_Adapter(getContext(), list));
     }
 }

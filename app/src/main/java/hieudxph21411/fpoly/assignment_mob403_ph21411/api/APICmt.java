@@ -23,12 +23,6 @@ public interface APICmt {
             .build()
             .create(APICmt.class);
 
-    @GET("cmt/comic/{id}")
-    Call<Cmt> getOneCmt();
-
-//    @POST("/cmt")
-//    Call<Cmt> postCmt(@Body Cmt data, @Query("comicId") String comicId, @Query("usersId") String usersId);
-
     @POST("cmt/{comicId}/{usersId}")
     Call<Cmt> postCmt(@Body Cmt data, @Path("comicId") String comicId, @Path("usersId") String usersId);
 

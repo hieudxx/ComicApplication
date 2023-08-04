@@ -15,6 +15,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv"
+        tools:listitem="@layout/comic_item_rcv"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/search"

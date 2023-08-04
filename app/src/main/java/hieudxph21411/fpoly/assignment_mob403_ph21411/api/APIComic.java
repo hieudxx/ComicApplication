@@ -23,8 +23,7 @@ public interface APIComic {
     @GET("comic/detail/{id}")
     Call<Comic> getOneComic(@Path("id") String id);
 
-
-
-
+    @GET("comic/read/{id}")
+    Call<Comic> getReadComic(@Path("id") String id);
 
 }

@@ -52,9 +52,6 @@ public class UsersListFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentUsersListBinding.inflate(inflater, container, false);
         getData();
-        loadData();
-
-
         binding.fltBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,8 +112,6 @@ public class UsersListFragment extends Fragment {
                             if (response.isSuccessful()) {
                                 Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                                 getData();
-                                adapter.notifyDataSetChanged();
-                                loadData();
                                 alertDialog.dismiss();
                             }
                         }
@@ -158,10 +153,12 @@ public class UsersListFragment extends Fragment {
             public void onResponse(Call<ArrayList<Users>> call, Response<ArrayList<Users>> response) {
                 if (response.isSuccessful()) {
                     list = new ArrayList<>(response.body());
+                    DividerItemDecoration itemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+                    binding.rcv.addItemDecoration(itemDecoration);
+                    adapter = new Users_Item_Adapter(context, list);
+                    binding.rcv.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 }
-                adapter = new Users_Item_Adapter(context, list);
-                binding.rcv.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -169,12 +166,6 @@ public class UsersListFragment extends Fragment {
                 Toast.makeText(context, "Thất bại", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void loadData() {
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        binding.rcv.addItemDecoration(itemDecoration);
-        binding.rcv.setAdapter(new Users_Item_Adapter(getContext(), list));
     }
 
     private void validForm() {

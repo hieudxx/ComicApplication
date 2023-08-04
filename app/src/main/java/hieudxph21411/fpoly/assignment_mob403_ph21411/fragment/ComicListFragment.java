@@ -43,7 +43,6 @@ public class ComicListFragment extends Fragment {
 
         list = new ArrayList<>();
         getData();
-        loadData();
 
         binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -67,7 +66,10 @@ public class ComicListFragment extends Fragment {
             public void onResponse(Call<ArrayList<Comic>> call, Response<ArrayList<Comic>> response) {
                 if (response.isSuccessful()) {
                     list = response.body();
-                    loadData();
+                    binding.rcv.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                    adapter = new Comic_Item_Adapter(getContext(), list);
+                    binding.rcv.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 }
             }
 
@@ -78,12 +80,4 @@ public class ComicListFragment extends Fragment {
         });
     }
 
-    private void loadData() {
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);  // dạng grid và chia thành 2 cột, ở đây ta phải set vào dòng bên dưới nữa mới chạy đc
-        layoutManager.setOrientation(RecyclerView.VERTICAL); // dạng vuốt ngang
-        binding.rcv.setLayoutManager(layoutManager);
-        adapter = new Comic_Item_Adapter(getContext(), list);
-        binding.rcv.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
 }

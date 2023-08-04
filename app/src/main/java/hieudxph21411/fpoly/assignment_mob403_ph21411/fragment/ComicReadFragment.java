@@ -54,9 +54,7 @@ public class ComicReadFragment extends Fragment {
             public void onResponse(Call<Comic> call, Response<Comic> response) {
                 if (response.isSuccessful()) {
                      comic =response.body();
-                    Log.e("tag_kiemTra", comic+"" );
                     list = new ArrayList<>(Arrays.asList(comic.getContent()));
-                    Log.e("tag_kiemTra", list+"" );
                 }
                 adapter = new Comic_Item_Read_Adapter(getContext(), list);
                 binding.rcv.setAdapter(adapter);

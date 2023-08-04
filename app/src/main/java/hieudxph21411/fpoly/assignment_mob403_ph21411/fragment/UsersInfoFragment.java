@@ -110,7 +110,6 @@ public class UsersInfoFragment extends Fragment {
             public void onResponse(Call<Users> call, Response<Users> response) {
                 if (response.isSuccessful()) {
                     users = response.body();
-                    Log.e("tag_kiemTra", users + "");
 
                     Glide.with(getContext()).load(users.getAvt()).into(binding.imgAvt);
                     binding.tvName.setText(users.getFullname());
@@ -127,11 +126,8 @@ public class UsersInfoFragment extends Fragment {
                         binding.tvRole.setText("Admin");
                         binding.tvSetRole.setText("Admin");
                     }
-
                 }
-
             }
-
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
 

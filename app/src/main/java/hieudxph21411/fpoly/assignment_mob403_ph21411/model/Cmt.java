@@ -1,10 +1,19 @@
 package hieudxph21411.fpoly.assignment_mob403_ph21411.model;
 
 public class Cmt {
+    private String _id;
     private String time;
     private String content;
     private Comic comic;
     private Users users;
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
     public String getTime() {
         return time;
@@ -41,7 +50,8 @@ public class Cmt {
     public Cmt() {
     }
 
-    public Cmt(String time, String content, Comic comic, Users users) {
+    public Cmt(String _id, String time, String content, Comic comic, Users users) {
+        this._id = _id;
         this.time = time;
         this.content = content;
         this.comic = comic;

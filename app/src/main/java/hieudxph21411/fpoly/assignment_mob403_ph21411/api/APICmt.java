@@ -12,11 +12,11 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APICmt {
-
     APICmt apiCmt = new Retrofit.Builder()
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -25,6 +25,9 @@ public interface APICmt {
 
     @POST("cmt/{comicId}/{usersId}")
     Call<Cmt> postCmt(@Body Cmt data, @Path("comicId") String comicId, @Path("usersId") String usersId);
+
+    @PUT("cmt/{cmtId}/{usersId}")
+    Call<Cmt> updateCmt(@Body Cmt data, @Path("cmtId") String cmtId, @Path("usersId") String usersId);
 
 
 }

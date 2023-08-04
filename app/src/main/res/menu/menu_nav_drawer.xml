@@ -4,38 +4,8 @@
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
         android:title="Trang chủ" />
-
-<!--    <item-->
-<!--        android:id="@+id/nav_qlyLS"-->
-<!--        android:icon="@drawable/baseline_library_books"-->
-<!--        android:title="Quản lý loại sách" />-->
-
-<!--    <item-->
-<!--        android:id="@+id/nav_qlyS"-->
-<!--        android:icon="@drawable/baseline_menu_book"-->
-<!--        android:title="Quản lý sách" />-->
-
-<!--    <item-->
-<!--        android:id="@+id/nav_qlyTV"-->
-<!--        android:icon="@drawable/baseline_person"-->
-<!--        android:title="Quản lý thành viên" />-->
-
-<!--    <item android:title="Thống kê">-->
-<!--        <menu>-->
-<!--            <item-->
-<!--                android:id="@+id/nav_qlyTop10"-->
-<!--                android:icon="@drawable/baseline_bar_chart"-->
-<!--                android:title="Top 10 sách mượn nhiều nhất" />-->
-
-<!--            <item-->
-<!--                android:id="@+id/nav_qlyDT"-->
-<!--                android:icon="@drawable/baseline_attach_money"-->
-<!--                android:title="Doanh thu" />-->
-
-<!--        </menu>-->
-<!--    </item>-->
-
-    <item android:id="@+id/nav_admin"
+    <item
+        android:id="@+id/nav_admin"
         android:title="Admin">
         <menu>
             <item
@@ -43,10 +13,10 @@
                 android:icon="@drawable/ic_person"
                 android:title="Quản lý người dùng" />
 
-<!--            <item-->
-<!--                android:id="@+id/nav_author"-->
-<!--                android:icon="@drawable/ic_person"-->
-<!--                android:title="Quản lý tác giả" />-->
+            <!--            <item-->
+            <!--                android:id="@+id/nav_author"-->
+            <!--                android:icon="@drawable/ic_person"-->
+            <!--                android:title="Quản lý tác giả" />-->
 
             <item
                 android:id="@+id/nav_TK"
@@ -75,7 +45,6 @@
 
         </menu>
     </item>
-
 
 </menu>
 

@@ -66,11 +66,11 @@ public class ComicListFragment extends Fragment {
             public void onResponse(Call<ArrayList<Comic>> call, Response<ArrayList<Comic>> response) {
                 if (response.isSuccessful()) {
                     list = response.body();
-                    binding.rcv.setLayoutManager(new GridLayoutManager(getContext(), 2));
-                    adapter = new Comic_Item_Adapter(getContext(), list);
-                    binding.rcv.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
                 }
+                binding.rcv.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                adapter = new Comic_Item_Adapter(getContext(), list);
+                binding.rcv.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override

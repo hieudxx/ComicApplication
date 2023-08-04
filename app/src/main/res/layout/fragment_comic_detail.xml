@@ -206,7 +206,8 @@
                 android:id="@+id/rcv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/cmt_item_rcv" />
         </LinearLayout>
     </ScrollView>
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+
 
 import hieudxph21411.fpoly.assignment_mob403_ph21411.MainActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.LoginActivity;
@@ -28,7 +26,6 @@ import hieudxph21411.fpoly.assignment_mob403_ph21411.api.APIComic;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.FragmentComicDetailBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Cmt;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Comic;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,6 +53,7 @@ public class ComicDetailFragment extends Fragment {
         binding = FragmentComicDetailBinding.inflate(inflater, container, false);
         comic = new Comic();
         getData();
+        loadData();
 
         binding.tvHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +65,6 @@ public class ComicDetailFragment extends Fragment {
         binding.btnAddCmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Calendar c = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
                 String time = df.format(c.getTime());
@@ -82,8 +79,10 @@ public class ComicDetailFragment extends Fragment {
                 APICmt.apiCmt.postCmt(cmt, comicId, usersId).enqueue(new Callback<Cmt>() {
                     @Override
                     public void onResponse(Call<Cmt> call, Response<Cmt> response) {
-                        Toast.makeText(getContext(), "Thêm thành công" + comicId +"\n"+ usersId, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                         getData();
+                        adapter.notifyDataSetChanged();
+                        loadData();
                     }
 
                     @Override
@@ -137,8 +136,6 @@ public class ComicDetailFragment extends Fragment {
                     _idComic = comic.get_id();
                     list = new ArrayList<>(Arrays.asList(comic.getCmt()));
 
-                    DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-                    binding.rcv.addItemDecoration(itemDecoration);
                     adapter = new Cmt_Item_Adapter(getContext(), list);
                     binding.rcv.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
@@ -150,5 +147,11 @@ public class ComicDetailFragment extends Fragment {
                 Toast.makeText(getContext(), "Thất bại", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void loadData() {
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        binding.rcv.addItemDecoration(itemDecoration);
+        binding.rcv.setAdapter(new Cmt_Item_Adapter(getContext(), list));
     }
 }

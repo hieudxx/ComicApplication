@@ -1,7 +1,10 @@
 package hieudxph21411.fpoly.assignment_mob403_ph21411.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
@@ -31,12 +34,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ComicDetailFragment extends Fragment {
-    private FragmentComicDetailBinding binding;
-    private ArrayList<Cmt> list;
-    private Cmt_Item_Adapter adapter;
-    private Comic comic;
+    private static FragmentComicDetailBinding binding;
+    private static ArrayList<Cmt> list;
+    private static Cmt_Item_Adapter adapter;
+    private static Comic comic;
     static String idm;
     static String _idComic;
+    public static Context context;
+
 
     public ComicDetailFragment() {
     }
@@ -120,7 +125,13 @@ public class ComicDetailFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void getData() {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        context = view.getContext();
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    public static void getData() {
         APIComic.apiComic.getOneComic(idm).enqueue(new Callback<Comic>() {
             @Override
             public void onResponse(Call<Comic> call, Response<Comic> response) {
@@ -129,14 +140,14 @@ public class ComicDetailFragment extends Fragment {
 
                     binding.tvName.setText(comic.getName());
                     binding.tvTime.setText("Năm xuất bản: " + comic.getDate());
-                    Glide.with(getContext()).load(comic.getCover()).into(binding.imgCover);
+                    Glide.with(context).load(comic.getCover()).into(binding.imgCover);
                     binding.tvAuthor.setText("Tác giả: " + comic.getAuthor());
                     binding.tvChapter.setText("Chapter: " + comic.getChapter());
                     binding.tvDes.setText(comic.getDes());
                     _idComic = comic.get_id();
                     list = new ArrayList<>(Arrays.asList(comic.getCmt()));
 
-                    adapter = new Cmt_Item_Adapter(getContext(), list);
+                    adapter = new Cmt_Item_Adapter(context, list);
                     binding.rcv.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }
@@ -144,7 +155,7 @@ public class ComicDetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Comic> call, Throwable t) {
-                Toast.makeText(getContext(), "Thất bại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Thất bại", Toast.LENGTH_SHORT).show();
             }
         });
     }

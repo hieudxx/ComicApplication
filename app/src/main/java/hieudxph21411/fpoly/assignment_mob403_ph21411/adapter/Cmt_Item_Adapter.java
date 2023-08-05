@@ -22,22 +22,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import hieudxph21411.fpoly.assignment_mob403_ph21411.R;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.LoginActivity;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.api.API;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.api.APICmt;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.api.APIUsers;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.CmtItemRcvBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.DialogEditCmtBinding;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.DialogEditUsersBinding;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.ComicDetailFragment;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Cmt;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.model.Users;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.HttpException;
 import retrofit2.Response;
 
 public class Cmt_Item_Adapter extends RecyclerView.Adapter<Cmt_Item_Adapter.ViewHolder> {
     private Context context;
     private ArrayList<Cmt> list;
-    private Users users;
     private DialogEditCmtBinding editBinding;
+    private Cmt cmt;
 
     public Cmt_Item_Adapter(Context context, ArrayList<Cmt> list) {
         this.context = context;
@@ -49,7 +53,7 @@ public class Cmt_Item_Adapter extends RecyclerView.Adapter<Cmt_Item_Adapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         CmtItemRcvBinding binding = DataBindingUtil.inflate(inflater, R.layout.cmt_item_rcv, parent, false);
-        users = new Users();
+        cmt = new Cmt();
         return new ViewHolder(binding);
     }
 
@@ -59,14 +63,6 @@ public class Cmt_Item_Adapter extends RecyclerView.Adapter<Cmt_Item_Adapter.View
         holder.binding.tvFullName.setText(list.get(position).getUsers().getFullname());
         holder.binding.tvContent.setText(list.get(position).getContent());
         holder.binding.tvTime.setText(list.get(position).getTime());
-
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                context.getApplicationContext().reM registerForContextMenu(view);
-//                openContextMenu(view);
-//            }
-//        });
     }
 
     @Override
@@ -97,10 +93,27 @@ public class Cmt_Item_Adapter extends RecyclerView.Adapter<Cmt_Item_Adapter.View
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             if (item.getItemId() == R.id.cmt_delete) {
-                Log.e("tag_kiemTra", "onMenuItemClick: xóa" + list.get(getAdapterPosition()));
+
+                APICmt.apiCmt.deleteCmt(list.get(getAdapterPosition()).get_id(), LoginActivity.shared.getString("_id", "")).enqueue(new Callback<Cmt>() {
+                    @Override
+                    public void onResponse(Call<Cmt> call, Response<Cmt> response) {
+                        if (response.code() == 403) {
+                            Toast.makeText(context, "Bạn không có quyền xóa bình luận này", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Cmt> call, Throwable t) {
+                        Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
             } else if (item.getItemId() == R.id.cmt_edit) {
                 String cmtId = list.get(getAdapterPosition()).get_id();
-                String usersId = list.get(getAdapterPosition()).getUsers().get_id();
+                String usersId = LoginActivity.shared.getString("_id", "");
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context); // view.getRootView().getContext()
                 builder.setCancelable(false);
@@ -134,13 +147,42 @@ public class Cmt_Item_Adapter extends RecyclerView.Adapter<Cmt_Item_Adapter.View
                             APICmt.apiCmt.updateCmt(bl, cmtId, usersId).enqueue(new Callback<Cmt>() {
                                 @Override
                                 public void onResponse(Call<Cmt> call, Response<Cmt> response) {
+                                    if (response.code() == 403) {
+                                        Toast.makeText(context, "Bạn không có quyền cập nhật", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+//                                    cmt = response.body();
+                                    Log.e("tag_kiemTra", "onResponse: " + response.body());
+                                    Log.e("tag_kiemTra", "onResponse: " + cmt.toString());
+//                                        list.set(getAdapterPosition(), cmt);
+//                                        Log.e("tag_kiemTra", "onResponse: "+list.get(getAdapterPosition()) );
+//                                        notifyItemChanged(getAdapterPosition());
                                     Toast.makeText(context, "Thành công", Toast.LENGTH_SHORT).show();
+
+//                                    ComicDetailFragment.getData();
+                                    alertDialog.dismiss();
+
 
                                 }
 
                                 @Override
                                 public void onFailure(Call<Cmt> call, Throwable t) {
-                                    Toast.makeText(context, "Thất bại", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Thành công", Toast.LENGTH_SHORT).show();
+                                    t.printStackTrace();
+                                    if (!call.isExecuted()) {
+                                        Log.d("Error", "Lỗi kết nối mạng");
+                                    }
+                                    int statusCode = -1;
+                                    if (t instanceof HttpException) {
+                                        HttpException httpException = (HttpException) t;
+                                        statusCode = httpException.code();
+
+                                        if (statusCode == 401) {
+                                            Log.d("Error", "Lỗi Authorization");
+                                        }
+                                    }
+                                    // Đóng Call
+                                    call.cancel();
 
                                 }
                             });

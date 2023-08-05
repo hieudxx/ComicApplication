@@ -203,6 +203,7 @@ public class RegisterActivity extends AppCompatActivity {
                         object.put("pass", pass);
                         object.put("email", email);
                         object.put("fullname", fullname);
+                        object.put("avt",avt);
                         request = new JsonObjectRequest(
                                 Request.Method.POST,
                                 API.API_POST_REGISTER_USERS,

@@ -57,6 +57,13 @@ public class ComicListFragment extends Fragment {
                 return false;
             }
         });
+
+        binding.fltBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return binding.getRoot();
     }
 

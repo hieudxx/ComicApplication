@@ -62,4 +62,15 @@ public class Cmt {
         this.time = time;
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "Cmt{" +
+                "_id='" + _id + '\'' +
+                ", time='" + time + '\'' +
+                ", content='" + content + '\'' +
+                ", comic=" + comic +
+                ", users=" + users +
+                '}';
+    }
 }

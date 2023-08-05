@@ -9,6 +9,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -28,6 +29,9 @@ public interface APICmt {
 
     @PUT("cmt/{cmtId}/{usersId}")
     Call<Cmt> updateCmt(@Body Cmt data, @Path("cmtId") String cmtId, @Path("usersId") String usersId);
+
+    @DELETE("cmt/{cmtId}/{usersId}")
+    Call<Cmt> deleteCmt(@Path("cmtId") String cmtId, @Path("usersId") String usersId);
 
 
 }

@@ -2,6 +2,8 @@ package hieudxph21411.fpoly.assignment_mob403_ph21411.fragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -14,6 +16,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import hieudxph21411.fpoly.assignment_mob403_ph21411.MainActivity;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.R;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Comic_Item_Read_Adapter;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.api.APIComic;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.databinding.FragmentComicReadBinding;
@@ -45,6 +49,13 @@ public class ComicReadFragment extends Fragment {
         binding = FragmentComicReadBinding.inflate(inflater, container, false);
         comic = new Comic();
         getData();
+
+
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setSupportActionBar(MainActivity.binding.tbMain);
+        ActionBar actionBar = activity.getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
         return binding.getRoot();
     }
 
@@ -53,7 +64,7 @@ public class ComicReadFragment extends Fragment {
             @Override
             public void onResponse(Call<Comic> call, Response<Comic> response) {
                 if (response.isSuccessful()) {
-                     comic =response.body();
+                    comic = response.body();
                     list = new ArrayList<>(Arrays.asList(comic.getContent()));
                 }
                 adapter = new Comic_Item_Read_Adapter(getContext(), list);

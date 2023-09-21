@@ -30,6 +30,7 @@ import hieudxph21411.fpoly.assignment_mob403_ph21411.fragment.UsersListFragment;
 
 public class MainActivity extends AppCompatActivity {
     public static ActivityMainBinding binding;
+    public static ActionBar actionBar;
     static FragmentManager manager;
 
     @Override
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        vì ta đã bỏ actionbar trong themes nên giờ phải set lại actionbar vào toolbar để có thẻ kéo nav từ bên trái
         setSupportActionBar(binding.tbMain);
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 

@@ -3,8 +3,12 @@ package hieudxph21411.fpoly.assignment_mob403_ph21411.fragment;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
@@ -20,8 +24,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import androidx.fragment.app.FragmentManager;
 
 import hieudxph21411.fpoly.assignment_mob403_ph21411.MainActivity;
+import hieudxph21411.fpoly.assignment_mob403_ph21411.R;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.activity.LoginActivity;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.adapter.Cmt_Item_Adapter;
 import hieudxph21411.fpoly.assignment_mob403_ph21411.api.APICmt;
@@ -40,6 +46,8 @@ public class ComicDetailFragment extends Fragment {
     private static Comic comic;
     static String idm;
     static String _idComic;
+    private OnBackPressedDispatcher backPressedDispatcher;
+
     public static Context context;
 
 
@@ -60,10 +68,29 @@ public class ComicDetailFragment extends Fragment {
         getData();
         loadData();
 
+//        AppCompatActivity activity = (AppCompatActivity) getActivity();
+//        activity.setSupportActionBar(binding.tbFrag);
+//        ActionBar actionBar = activity.getSupportActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+//        setUpOnBackPress();
+
+//        backPressedDispatcher = new OnBackPressedDispatcher();
+//        backPressedDispatcher.addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                getActivity().getSupportFragmentManager().popBackStack();
+//
+//            }
+//        });
+//        OnBackPressedDispatcher actionBar = new OnBackPressedDispatcher();
+//                getActivity().getOnBackPressedDispatcher();
+
+
         binding.tvHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.loadFragment(ComicListFragment.newInstance());
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
 
@@ -124,6 +151,18 @@ public class ComicDetailFragment extends Fragment {
         });
         return binding.getRoot();
     }
+
+//    private void setUpOnBackPress() {
+//        requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                if (isEnabled()) {
+//                    setEnabled(false);
+//                    requireActivity().onBackPressed();
+//                }
+//            }
+//        });
+//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
